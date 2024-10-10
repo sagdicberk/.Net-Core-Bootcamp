@@ -1,0 +1,51 @@
+@model ProductViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="card shadow-sm my-4">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <form asp-action="ETicaret" method="get">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-md-10">
+                            <select name="category" class="form-select"
+                                asp-items="@(new SelectList(Model.Categories, "CategoryId","Name",Model.SelectedCategory))">
+                                <option value="0">Hepsi</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-secondary w-100" type="submit">Filtrele</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-6 d-flex justify-content-end">
+                <form asp-action="ETicaret" class="d-flex" method="get">
+                    <input type="search" class="form-control me-2" name="searchString" value="@ViewBag.SearchString"
+                        placeholder="Anahtar Kelime">
+                    <button type="submit" class="btn btn-secondary">ARA</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        @foreach(var prd in @Model.Products){
+                        <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="~/img/@prd.Image" class="card-img-top img-fluid" alt="Ürün Resmi">
+                    <div class="card-body">
+                        <h5 class="card-title">Ürün Adı: @prd.Name</h5>
+                        <p class="card-text">Ürün ID: @prd.ProductId</p>
+                        <p class="card-text">Sayfa Sayısı: @prd.Pages</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
